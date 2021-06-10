@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Ini students</string>
+    <string name="settings">Settings</string>
+    <string name="msg_error_no_internet_connection">No Internet connection</string>
+    <string name="choose_university">აირჩიეთ უნივერსიტეტი</string>
+    <string name="open_university">უნივერსიტეტი</string>
+    <string name="app_condition_text">© 2019 ini.ge ყველა უფლება დაცულია</string>
+    <string name="logout_message">ნამდვილად გსურთ გამოსვლა?</string>
+    <string name="answer_yes">კი</string>
+    <string name="answer_no">არა</string>
+    <string name="enter_pin">შეიყვანეთ პინი</string>
+    <string name="wrong_pin">პინი არასწორია</string>
+    <string name="cancel_pin_message">ნამდვილად გსურთ დამახსოვრებული ავტორიზაციის გათიშვა?</string>
+    <string name="sign_in">შესვლა</string>
+    <string name="cancel">დახურვა</string>
+    <string name="search">ძიება</string>
+    <string name="user">მომხმარებელი</string>
+    <string name="password">პაროლი</string>
+    <string name="incorrect_password_user_message">მომხმარებელი ან პაროლი არასწორია</string>
+
+</resources>
