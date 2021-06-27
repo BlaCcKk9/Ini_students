@@ -6,7 +6,7 @@ import moxy.viewstate.strategy.StateStrategyType
 interface WebViewView: BaseView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun startWebView(token: String)
+    fun startWebView(token: String, url: String)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setEnterPinVisibility(isVisible: Boolean)

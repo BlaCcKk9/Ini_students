@@ -15,7 +15,7 @@ interface MainView: BaseView {
     fun onEmptyAuth()
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun startWebViewScreen(token: String)
+    fun startWebViewScreen(token: String, url: String = "")
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setEnterPinViewVisibility(isVisible: Boolean)

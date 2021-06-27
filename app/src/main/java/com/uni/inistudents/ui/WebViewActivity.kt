@@ -26,6 +26,7 @@ class WebViewActivity : BaseActivity(), WebViewView {
     @ProvidePresenter
     fun providePresenter() = WebViewPresenter(
         intent.getStringExtra("token") as String,
+        intent.getStringExtra("url") as String
     )
 
     override fun getLayoutResID(): Int = R.layout.activity_web_view
@@ -55,13 +56,13 @@ class WebViewActivity : BaseActivity(), WebViewView {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun startWebView(token: String) {
+    override fun startWebView(token: String, url: String) {
         webView.apply {
             settings.javaScriptEnabled = true
             settings.safeBrowsingEnabled = true
             settings.domStorageEnabled = true
             webViewClient = WebViewClient()
-            loadUrl("http://emis1.seu.edu.ge/")
+            loadUrl(url)
             webViewClient = object : WebViewClient() {
                 override fun onPageFinished(
                     view: WebView?,
@@ -72,7 +73,7 @@ class WebViewActivity : BaseActivity(), WebViewView {
                     val `val` = token
 
                     if (Uri.parse(url).toString()
-                            .contains("emis1.seu.edu.ge")
+                            .contains("emis1.seu.edu.ge") || Uri.parse(url).toString().contains("vici.gtu.ge")
                     ) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             webView.evaluateJavascript(
@@ -127,8 +128,9 @@ class WebViewActivity : BaseActivity(), WebViewView {
 
 
     companion object{
-        fun createIntent(context: Context, token: String): Intent =
+        fun createIntent(context: Context, token: String, url: String): Intent =
             Intent(context, WebViewActivity::class.java)
                 .putExtra("token", token)
+                .putExtra("url", url)
     }
 }

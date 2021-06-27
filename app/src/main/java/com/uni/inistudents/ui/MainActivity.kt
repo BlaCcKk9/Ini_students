@@ -9,9 +9,6 @@ import android.view.View
 import android.widget.Toast
 import com.alimuzaffar.lib.pin.PinEntryEditText
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.MobileAds
 import com.uni.inistudents.R
 import com.uni.inistudents.listener.OnSelectedUniversity
 import com.uni.inistudents.model.DataInfo
@@ -28,6 +25,7 @@ import java.util.*
 class MainActivity : BaseActivity(), MainView, OnSelectedUniversity {
 
     private var universityId: String = ""
+    private var url: String = ""
     private var uniData: DataInfo = DataInfo("", "", "", "")
 
     @InjectPresenter
@@ -40,8 +38,8 @@ class MainActivity : BaseActivity(), MainView, OnSelectedUniversity {
 
 
     override fun setupView(savedInstanceState: Bundle?) {
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+//        val adRequest = AdRequest.Builder().build()
+//        adView.loadAd(adRequest)
         setLanguageBtnVisibility()
         val pinEntry = findViewById<View>(R.id.txt_pin_entry) as PinEntryEditText
         pinEntry.transformationMethod = AsteriskPasswordTransformationMethod()
@@ -67,11 +65,13 @@ class MainActivity : BaseActivity(), MainView, OnSelectedUniversity {
             finish()
         }
 
-        btnSignIn.setOnClickListener { presenter.onSignInClicked(
-            etUser.text.toString(),
-            etPassword.text.toString(),
-            uniData
-        ) }
+        btnSignIn.setOnClickListener {
+            presenter.onSignInClicked(
+                etUser.text.toString(),
+                etPassword.text.toString(),
+                uniData
+            )
+        }
         container.setOnClickListener { presenter.onCancelEnterPin() }
 
 
@@ -113,13 +113,14 @@ class MainActivity : BaseActivity(), MainView, OnSelectedUniversity {
         tvError.visibility = View.VISIBLE
     }
 
-    override fun startWebViewScreen(token: String) {
+    override fun startWebViewScreen(token: String, url: String) {
         tvError.visibility = View.GONE
-        startActivity(WebViewActivity.createIntent(this, token))
+        startActivity(WebViewActivity.createIntent(this, token, this.uniData.url))
+
     }
 
     override fun setEnterPinViewVisibility(isVisible: Boolean) {
-        if (isVisible){
+        if (isVisible) {
             backGround.visibility = View.VISIBLE
             constraintEnterPin.visibility = View.VISIBLE
         } else {
@@ -147,6 +148,7 @@ class MainActivity : BaseActivity(), MainView, OnSelectedUniversity {
             presenter.saveUniWhenLanguageChanged(university)
             uniData = university
             universityId = university.id
+            url = university.url
             tvUniversity.text = if (language == "ge") university.title else university.title_en
             layoutUser.visibility = View.VISIBLE
             layoutPassword.visibility = View.VISIBLE

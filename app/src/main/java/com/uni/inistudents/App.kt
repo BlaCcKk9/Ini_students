@@ -3,6 +3,8 @@ package com.uni.inistudents
 import android.app.Application
 import android.content.Context
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.initialization.InitializationStatus
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener
 import com.uni.inistudents.dagger.component.AppComponent
 import com.uni.inistudents.dagger.component.DaggerAppComponent
 import com.uni.inistudents.dagger.module.AppModule
@@ -14,6 +16,7 @@ class App : Application() {
     companion object {
         lateinit var appContext: Context
         lateinit var appComponent: AppComponent
+        private var appOpenManager: AppOpenManager? = null
     }
 
     @Inject
@@ -35,7 +38,8 @@ class App : Application() {
     }
 
     private fun initializeMobileAds(){
-        MobileAds.initialize(this)
+        MobileAds.initialize(this) { }
+        appOpenManager = AppOpenManager(this)
     }
 
 }

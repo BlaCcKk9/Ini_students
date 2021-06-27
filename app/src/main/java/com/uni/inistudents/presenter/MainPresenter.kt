@@ -21,6 +21,7 @@ class MainPresenter(private var isLogout: Boolean = false) : BasePresenter<MainV
 //        }
 
         if (preferences().universityId!!.isNotEmpty()) {
+            Log.e("url->>", preferences().universityUrl.toString())
             this.uni = DataInfo(
                 preferences().universityId ?: "",
                 preferences().universityTitle ?: "",
@@ -46,10 +47,11 @@ class MainPresenter(private var isLogout: Boolean = false) : BasePresenter<MainV
 
     fun onSignInClicked(user: String, password: String, uni: DataInfo) {
         this.uni = DataInfo(uni.id, uni.title, uni.title_en, uni.url)
+        Log.e("id->>>", uni.id)
         if (isEmpty(user) || isEmpty(password) || isEmpty(uni.id)) viewState.onEmptyAuth() else loadStudent(
             user,
             password,
-            uni.id
+            uni.id,
         )
     }
 
@@ -60,7 +62,7 @@ class MainPresenter(private var isLogout: Boolean = false) : BasePresenter<MainV
     fun onEnteredPin(pin: String) {
         if (preferences().pin!!.isNotEmpty()) {
             if (preferences().pin == pin) {
-                viewState.startWebViewScreen(preferences().token!!)
+                viewState.startWebViewScreen(preferences().token!!, preferences().universityUrl!!)
             } else viewState.showWrongPinMessage()
         }
     }

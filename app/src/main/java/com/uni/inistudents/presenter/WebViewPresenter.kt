@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 
 @InjectViewState
-class WebViewPresenter(private var token: String): BasePresenter<WebViewView>() {
+class WebViewPresenter(private var token: String, private var url: String): BasePresenter<WebViewView>() {
 
     init {
         if (preferences().pin!!.isEmpty()) viewState.setEnterPinVisibility(true) else viewState.setEnterPinVisibility(false)
@@ -45,6 +45,6 @@ class WebViewPresenter(private var token: String): BasePresenter<WebViewView>() 
     }
 
     private fun onSuccessUpdateFirebaseToken(){
-        viewState.startWebView(token)
+        viewState.startWebView(token,url)
     }
 }
